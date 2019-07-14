@@ -1,8 +1,17 @@
 # 好友功能
 import re
-
 import tuling_robot
+import mf_mr_know_all
 
+# import logging
+#
+# logger = logging.getLogger()
+# formatter = logging.Formatter('%(asctime)s : %(threadName)s : %(thread)d : %(levelname)s : %(message)s')
+#
+# console = logging.StreamHandler()
+# console.setLevel(logging.INFO)
+# console.setFormatter(formatter)
+# logger.addHandler(console)
 
 def auto_accept_friends(msg):
     """自动接受好友"""
@@ -16,7 +25,11 @@ def auto_reply(msg):
     """自动回复"""
     # 关键字回复 or 图灵机器人回复
     # handle_withdraw_msg(msg)
-    keyword_reply(msg) or tuling_reply(msg)
+    if mf_mr_know_all.keyword_reply(msg):
+        return
+    else:
+        print("Micro Focus, Mr. Know All has no match ! Using wx_reply.tuling_reply to replay.")
+        tuling_reply(msg)
 
 
 def keyword_reply(msg):
